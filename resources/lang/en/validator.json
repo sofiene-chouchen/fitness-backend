@@ -1,0 +1,12 @@
+{
+  "shared": {
+    "fields": {
+      "fullName": "full name",
+      "email": "email"
+    },
+    "messages": {
+      "required": "Enter {field}",
+      "email": "The {field} field must be a valid email"
+    }
+  }
+}

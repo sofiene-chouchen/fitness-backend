@@ -1,0 +1,17 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend-fitness
+    environment:
+      - =value
+  db:
+    image: postgres:14-alpine
+    ports:
+      - 
+ 
+
+
+  

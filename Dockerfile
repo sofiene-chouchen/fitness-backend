@@ -25,7 +25,6 @@ COPY --from=deps /app/node_modules /app/node_modules
 COPY . .
 RUN node ace docs:generate
 RUN node ace build
-COPY swagger.json build/
 
 # Production stage
 FROM base
@@ -33,9 +32,6 @@ ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
+COPY --from=build /app/swagger.json /app
 EXPOSE 8080
 CMD ["node", "./bin/server.js"]
-
-# Healthcheck (optional, requires curl)
-# HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
-#     CMD curl -f http://localhost:8080/ || exit 1

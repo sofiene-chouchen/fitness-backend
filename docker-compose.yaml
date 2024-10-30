@@ -1,17 +1,37 @@
-version: "3"
+version: '3'
 services:
   backend:
+    depends_on:
+      - fintess-poc-db
     build:
       context: .
       dockerfile: Dockerfile
     container_name: backend-fitness
     environment:
-      - =value
-  db:
+      - DB_HOST=fintess-poc-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=fitness
+      - PORT= 3000
+      - APP_KEY=qsdqsdqsdazeagezeerazrazr
+      - HOST=0.0.0.0
+      - LOG_LEVEL=info
+    ports:
+      - '3000:3000'
+  fintess-poc-db:
     image: postgres:14-alpine
     ports:
-      - 
- 
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fitness
+    volumes:
+      - db-data:/var/lib/postgresql/data
 
-
-  
+volumes:
+  db-data:
+networks:
+  fitness-poc-network:
+    driver: bridge
